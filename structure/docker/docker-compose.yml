@@ -1,0 +1,24 @@
+# docker-compose.yml
+version: "3.8"
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      MONGO_URI: "mongodb://mongo:27017"
+      REDIS_ADDR: "redis:6379"
+    depends_on:
+      - mongo
+      - redis
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
